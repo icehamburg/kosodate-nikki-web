@@ -97,12 +97,17 @@ export default function HomePage() {
           .feature-grid { grid-template-columns: 1fr; }
           nav, .header-cta { display: none; }
           .footer-content { flex-direction: column; gap: 24px; }
+          .sp-hide { display: none; }
         }
         @media (max-width: 600px) {
           .hero h1 { font-size: 2rem; }
+          .hero-desc { font-size: 1.05rem; }
           .section-header h2 { font-size: 1.8rem; }
           .feature-card { flex-direction: column; text-align: center; }
-          .feature-icon { margin: 0 auto; }
+          .feature-icon { margin: 0 auto; background: transparent; box-shadow: none; }
+          .cta h2 { font-size: 1.8rem; }
+          .support-card { padding: 40px 24px; }
+          .support-card h2 { font-size: 1.6rem; }
         }
       `}</style>
 
@@ -127,8 +132,8 @@ export default function HomePage() {
         <div className="container hero-content">
           <div className="hero-text">
             <div className="hero-badge">✨ 無料で使える</div>
-            <h1>毎日の<span className="hl">成長</span>を<br />かんたん記録</h1>
-            <p className="hero-desc">授乳・おむつ・睡眠をワンタップで記録。<br />忙しい育児中でもサッと使えます。</p>
+            <h1>毎日の<span className="hl">成長</span>を<br className="sp-hide" />かんたん記録</h1>
+            <p className="hero-desc">授乳・おむつ・睡眠をワンタップで記録。忙しい育児中でもサッと使えます。</p>
             <a href={APP_STORE_URL} className="btn-primary">📱 App Store でダウンロード</a>
           </div>
           <div className="hero-phone">
@@ -196,7 +201,7 @@ export default function HomePage() {
           <div className="support-card">
             <div className="support-icon">💬</div>
             <h2>サポート</h2>
-            <p>アプリに関するご質問、ご要望、不具合のご報告など、<br />お気軽にお問い合わせください。</p>
+            <p>アプリに関するご質問、ご要望、不具合のご報告など、お気軽にお問い合わせください。</p>
             <a href="mailto:icehamburgs@gmail.com" className="support-email">📧 メールで問い合わせ</a>
           </div>
         </div>
