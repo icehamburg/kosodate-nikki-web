@@ -11,11 +11,11 @@ export default function PrivacyPage() {
       <style>{`
         .prv-header { background: #fff; border-bottom: 1px solid rgba(0,0,0,0.05); }
         .prv-header-inner { max-width: 800px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; }
-        .prv-logo { display: flex; align-items: center; gap: 12px; color: #D97757; font-weight: 900; font-size: 1.25rem; }
+        .prv-logo { display: flex; align-items: center; gap: 12px; color: #D97757; font-weight: 700; font-size: 1.25rem; }
         .prv-logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #D97757 0%, #FFB088 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
         .prv-main { padding: 64px 0 96px; background: #FFF9F7; }
         .prv-container { max-width: 700px; margin: 0 auto; padding: 0 24px; }
-        .prv-main h1 { font-size: 1.875rem; font-weight: 900; text-align: center; margin-bottom: 48px; }
+        .prv-main h1 { font-size: 1.875rem; font-weight: 700; text-align: center; margin-bottom: 48px; }
         .prv-card { background: #fff; border-radius: 24px; padding: 40px 48px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         .prv-card p { color: #636E72; margin-bottom: 16px; }
         .prv-section { margin-bottom: 32px; }
