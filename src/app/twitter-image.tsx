@@ -1,4 +1,6 @@
 import { ImageResponse } from 'next/og'
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 
 export const alt = '子育て日記 - 赤ちゃんの成長をかんたん記録'
 export const size = {
@@ -8,6 +10,9 @@ export const size = {
 export const contentType = 'image/png'
 
 export default async function TwitterImage() {
+  const iconData = await readFile(join(process.cwd(), 'public/app-icon.png'))
+  const iconSrc = `data:image/png;base64,${iconData.toString('base64')}`
+
   return new ImageResponse(
     (
       <div
@@ -90,21 +95,15 @@ export default async function TwitterImage() {
               marginBottom: 24,
             }}
           >
-            <div
+            <img
+              src={iconSrc}
+              width={72}
+              height={72}
               style={{
-                width: 72,
-                height: 72,
-                background: 'linear-gradient(135deg, #D97757 0%, #FFB088 100%)',
                 borderRadius: 20,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 40,
                 boxShadow: '0 4px 12px rgba(217, 119, 87, 0.25)',
               }}
-            >
-              📔
-            </div>
+            />
             <div
               style={{
                 fontSize: 56,

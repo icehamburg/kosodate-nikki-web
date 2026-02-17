@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -12,7 +13,7 @@ export default function PrivacyPage() {
         .prv-header { background: #fff; border-bottom: 1px solid rgba(0,0,0,0.05); }
         .prv-header-inner { max-width: 800px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; }
         .prv-logo { display: flex; align-items: center; gap: 12px; color: #D97757; font-weight: 700; font-size: 1.25rem; }
-        .prv-logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #D97757 0%, #FFB088 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .prv-logo-icon { width: 40px; height: 40px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
         .prv-main { padding: 64px 0 96px; background: #FFF9F7; }
         .prv-container { max-width: 700px; margin: 0 auto; padding: 0 24px; }
         .prv-main h1 { font-size: 1.875rem; font-weight: 700; text-align: center; margin-bottom: 48px; }
@@ -35,7 +36,7 @@ export default function PrivacyPage() {
       <header className="prv-header">
         <div className="prv-header-inner">
           <Link href="/" className="prv-logo">
-            <div className="prv-logo-icon">📔</div>
+            <div className="prv-logo-icon"><Image src="/app-icon.png" alt="子育て日記" width={40} height={40} /></div>
             子育て日記
           </Link>
         </div>

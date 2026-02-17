@@ -35,7 +35,7 @@ export default function HomePage() {
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
         .logo { display: flex; align-items: center; gap: 12px; font-size: 1.4rem; font-weight: 700; color: #D97757; }
-        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #D97757 0%, #FFB088 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .logo-icon { width: 40px; height: 40px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
         nav { display: flex; gap: 32px; }
         nav a { color: #636E72; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
         nav a:hover { color: #D97757; }
@@ -110,7 +110,7 @@ export default function HomePage() {
       <header className="header">
         <div className="container header-inner">
           <Link href="/" className="logo">
-            <div className="logo-icon">📔</div>
+            <div className="logo-icon"><Image src="/app-icon.png" alt="子育て日記" width={40} height={40} /></div>
             子育て日記
           </Link>
           <nav>
@@ -207,7 +207,7 @@ export default function HomePage() {
         <div className="container">
           <div className="footer-content">
             <Link href="/" className="footer-logo">
-              <div className="logo-icon">📔</div>
+              <div className="logo-icon"><Image src="/app-icon.png" alt="子育て日記" width={40} height={40} /></div>
               子育て日記
             </Link>
             <div className="footer-links">
