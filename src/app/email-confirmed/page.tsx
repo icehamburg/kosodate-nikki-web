@@ -7,39 +7,44 @@ export const metadata: Metadata = {
 
 export default function EmailConfirmedPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-[#FFF9F7]">
-      <div className="w-full max-w-md text-center">
-        <div className="bg-white rounded-3xl p-10 shadow-lg">
-          <div className="w-20 h-20 bg-[#FFF9F7] rounded-2xl flex items-center justify-center text-4xl mx-auto mb-6">
-            ✅
+    <>
+      <style>{`
+        .page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; background: #FFF9F7; }
+        .wrapper { width: 100%; max-width: 420px; text-align: center; }
+        .card { background: #fff; border-radius: 24px; padding: 48px 40px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .icon-box { width: 80px; height: 80px; background: #FFF9F7; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 24px; }
+        .card h1 { font-size: 1.5rem; font-weight: 900; margin-bottom: 12px; }
+        .card .desc { color: #636E72; margin-bottom: 32px; line-height: 1.8; font-size: 0.95rem; }
+        .steps { background: #FFF9F7; border-radius: 16px; padding: 20px; margin-bottom: 32px; text-align: left; }
+        .steps p { font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; }
+        .steps ol { font-size: 0.9rem; color: #636E72; padding-left: 20px; }
+        .steps li { margin-bottom: 6px; }
+        .link { color: #D97757; font-weight: 700; font-size: 0.9rem; }
+        .link:hover { text-decoration: underline; }
+        .copy { margin-top: 24px; font-size: 0.75rem; color: #636E72; }
+      `}</style>
+      <div className="page">
+        <div className="wrapper">
+          <div className="card">
+            <div className="icon-box">✅</div>
+            <h1>メール確認完了</h1>
+            <p className="desc">
+              メールアドレスの確認が完了しました。<br />
+              アプリに戻ってログインしてください。
+            </p>
+            <div className="steps">
+              <p>ログイン手順：</p>
+              <ol>
+                <li>この画面を閉じる</li>
+                <li>子育て日記アプリを開く</li>
+                <li>登録したメール・パスワードでログイン</li>
+              </ol>
+            </div>
+            <Link href="/" className="link">トップページへ</Link>
           </div>
-          <h1 className="text-2xl font-black mb-3">メール確認完了</h1>
-          <p className="text-[#636E72] mb-8 leading-relaxed">
-            メールアドレスの確認が完了しました。<br />
-            アプリに戻ってログインしてください。
-          </p>
-
-          <div className="bg-[#FFF9F7] rounded-2xl p-5 mb-8 text-left">
-            <p className="text-sm font-bold mb-2">ログイン手順：</p>
-            <ol className="text-sm text-[#636E72] space-y-1.5 list-decimal list-inside">
-              <li>この画面を閉じる</li>
-              <li>子育て日記アプリを開く</li>
-              <li>登録したメール・パスワードでログイン</li>
-            </ol>
-          </div>
-
-          <Link
-            href="/"
-            className="inline-block text-sm text-[#D97757] font-bold no-underline hover:underline"
-          >
-            トップページへ
-          </Link>
+          <p className="copy">© 2025 子育て日記</p>
         </div>
-
-        <p className="mt-6 text-xs text-[#636E72]">
-          © 2025 子育て日記
-        </p>
       </div>
-    </div>
+    </>
   );
 }

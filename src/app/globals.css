@@ -1,30 +1,3 @@
-@import "tailwindcss";
-
-@theme inline {
-  --color-primary: #D97757;
-  --color-primary-dark: #C4684A;
-  --color-primary-light: #F7EBDB;
-  --color-secondary: #FFB088;
-  --color-accent: #81B29A;
-  --color-bg: #FFF9F7;
-  --color-text: #2D3436;
-  --color-text-light: #636E72;
-  --color-white: #FFFFFF;
-  --font-sans: var(--font-noto-sans-jp);
-}
-
-:root {
-  --color-primary: #D97757;
-  --color-primary-dark: #C4684A;
-  --color-primary-light: #F7EBDB;
-  --color-secondary: #FFB088;
-  --color-accent: #81B29A;
-  --color-bg: #FFF9F7;
-  --color-text: #2D3436;
-  --color-text-light: #636E72;
-  --color-white: #FFFFFF;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -32,18 +5,17 @@
 }
 
 body {
-  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
-  color: var(--color-text);
+  font-family: var(--font-noto-sans-jp), 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
+  color: #2D3436;
   line-height: 1.7;
-  background: var(--color-white);
+  background: #FFFFFF;
   overflow-x: hidden;
 }
 
-/* Hide scrollbar for screenshot carousel */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+a {
+  text-decoration: none;
 }
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+.screenshot-carousel::-webkit-scrollbar {
+  display: none;
 }
