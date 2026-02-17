@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import AuthRedirect from "./auth-redirect";
 
 const APP_STORE_URL = "https://apps.apple.com/jp/app/%E5%AD%90%E8%82%B2%E3%81%A6%E6%97%A5%E8%A8%98/id6741088430";
 
@@ -59,6 +60,7 @@ const screenshots = [
 export default function HomePage() {
   return (
     <>
+      <AuthRedirect />
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-black/5">
         <div className="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between">
