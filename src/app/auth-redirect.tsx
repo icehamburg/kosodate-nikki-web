@@ -17,7 +17,8 @@ export default function AuthRedirect() {
     if (type === 'signup') {
       router.replace('/email-confirmed')
     } else if (type === 'recovery') {
-      router.replace('/password-reset')
+      // Pass hash fragment so password-reset page can restore the session
+      router.replace('/password-reset' + hash)
     }
   }, [router])
 
