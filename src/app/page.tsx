@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AuthRedirect from "./auth-redirect";
 
-const APP_STORE_URL = "https://apps.apple.com/jp/app/%E5%AD%90%E8%82%B2%E3%81%A6%E6%97%A5%E8%A8%98/id6741088430";
+const APP_STORE_URL = "https://apps.apple.com/jp/app/%E5%AD%90%E8%82%B2%E3%81%A6%E8%A8%98%E9%8C%B2%E6%97%A5%E8%A8%98/id6758967429";
 
 const features = [
   { icon: "🍼", title: "ワンタップ記録", desc: "授乳、おむつ、睡眠、体温、身長・体重など、よく使う記録をホーム画面からワンタップで入力。" },
