@@ -16,118 +16,197 @@ export default async function OGImage() {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: 'linear-gradient(135deg, #FFF9F7 0%, #FFE8DD 50%, #FFF9F7 100%)',
+          background: 'linear-gradient(180deg, #FFF9F7 0%, #fff 100%)',
           position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        {/* Decorative circles */}
+        {/* Background decoration - same as LP hero */}
         <div
           style={{
             position: 'absolute',
-            top: -60,
-            right: -60,
+            top: -100,
+            right: -100,
+            width: 400,
+            height: 400,
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #D97757 0%, #FFB088 100%)',
+            opacity: 0.08,
+            display: 'flex',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            bottom: -60,
+            left: -60,
             width: 300,
             height: 300,
             borderRadius: '50%',
-            background: 'rgba(217, 119, 87, 0.08)',
-            display: 'flex',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            bottom: -80,
-            left: -40,
-            width: 250,
-            height: 250,
-            borderRadius: '50%',
-            background: 'rgba(217, 119, 87, 0.06)',
+            background: 'linear-gradient(135deg, #FFB088 0%, #D97757 100%)',
+            opacity: 0.06,
             display: 'flex',
           }}
         />
 
-        {/* App icon */}
+        {/* Main content */}
         <div
           style={{
-            width: 120,
-            height: 120,
-            background: 'linear-gradient(135deg, #D97757 0%, #FFB088 100%)',
-            borderRadius: 32,
+            flex: 1,
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 64,
-            boxShadow: '0 8px 24px rgba(217, 119, 87, 0.3)',
-            marginBottom: 32,
+            padding: '0 80px',
+            position: 'relative',
+            zIndex: 1,
           }}
         >
-          📔
-        </div>
+          {/* Badge - same as LP hero-badge */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              background: '#fff',
+              border: '2px solid #D97757',
+              color: '#D97757',
+              padding: '10px 24px',
+              borderRadius: 50,
+              fontSize: 20,
+              fontWeight: 600,
+              marginBottom: 32,
+            }}
+          >
+            ✨ 無料の育児記録アプリ
+          </div>
 
-        {/* App name */}
-        <div
-          style={{
-            fontSize: 64,
-            fontWeight: 700,
-            color: '#2D3436',
-            marginBottom: 16,
-            display: 'flex',
-          }}
-        >
-          子育て日記
-        </div>
+          {/* App icon + title */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 20,
+              marginBottom: 24,
+            }}
+          >
+            <div
+              style={{
+                width: 72,
+                height: 72,
+                background: 'linear-gradient(135deg, #D97757 0%, #FFB088 100%)',
+                borderRadius: 20,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 40,
+                boxShadow: '0 4px 12px rgba(217, 119, 87, 0.25)',
+              }}
+            >
+              📔
+            </div>
+            <div
+              style={{
+                fontSize: 56,
+                fontWeight: 700,
+                color: '#D97757',
+                display: 'flex',
+              }}
+            >
+              子育て日記
+            </div>
+          </div>
 
-        {/* Tagline */}
-        <div
-          style={{
-            fontSize: 28,
-            color: '#636E72',
-            marginBottom: 40,
-            display: 'flex',
-          }}
-        >
-          赤ちゃんの成長をかんたん記録
-        </div>
+          {/* Headline - same as LP hero */}
+          <div
+            style={{
+              fontSize: 48,
+              fontWeight: 700,
+              color: '#2D3436',
+              lineHeight: 1.3,
+              textAlign: 'center',
+              marginBottom: 24,
+              display: 'flex',
+            }}
+          >
+            毎日の成長をかんたん記録
+          </div>
 
-        {/* Feature pills */}
-        <div
-          style={{
-            display: 'flex',
-            gap: 16,
-          }}
-        >
-          {['🍼 授乳記録', '⏱️ タイマー', '📅 タイムライン', '📊 まとめ', '📝 日記'].map(
-            (label) => (
+          {/* Description */}
+          <div
+            style={{
+              fontSize: 24,
+              color: '#636E72',
+              textAlign: 'center',
+              marginBottom: 40,
+              display: 'flex',
+            }}
+          >
+            授乳・おむつ・睡眠をワンタップで記録。忙しい育児中でもサッと使えます。
+          </div>
+
+          {/* Feature icons row - like LP feature cards */}
+          <div
+            style={{
+              display: 'flex',
+              gap: 20,
+            }}
+          >
+            {[
+              { icon: '🍼', label: 'ワンタップ記録' },
+              { icon: '⏱️', label: '授乳タイマー' },
+              { icon: '📅', label: 'タイムライン' },
+              { icon: '📊', label: 'まとめ' },
+              { icon: '📝', label: '日記' },
+              { icon: '🌙', label: 'ダークモード' },
+            ].map((f) => (
               <div
-                key={label}
+                key={f.label}
                 style={{
-                  background: '#fff',
-                  border: '2px solid #D97757',
-                  color: '#D97757',
-                  padding: '12px 24px',
-                  borderRadius: 50,
-                  fontSize: 20,
-                  fontWeight: 600,
                   display: 'flex',
-                  boxShadow: '0 2px 8px rgba(217, 119, 87, 0.1)',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 8,
                 }}
               >
-                {label}
+                <div
+                  style={{
+                    width: 56,
+                    height: 56,
+                    background: '#FFF9F7',
+                    borderRadius: 16,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 28,
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                  }}
+                >
+                  {f.icon}
+                </div>
+                <div
+                  style={{
+                    fontSize: 14,
+                    color: '#636E72',
+                    fontWeight: 500,
+                    display: 'flex',
+                  }}
+                >
+                  {f.label}
+                </div>
               </div>
-            )
-          )}
+            ))}
+          </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom bar - same as LP */}
         <div
           style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
             right: 0,
-            height: 6,
+            height: 5,
             background: 'linear-gradient(90deg, #D97757 0%, #FFB088 100%)',
             display: 'flex',
           }}
