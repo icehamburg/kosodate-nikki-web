@@ -15,12 +15,8 @@ export default function EmailConfirmedPage() {
         .icon-box { width: 80px; height: 80px; background: #FFF9F7; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 24px; }
         .card h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
         .card .desc { color: #636E72; margin-bottom: 32px; line-height: 1.8; font-size: 0.95rem; }
-        .steps { background: #FFF9F7; border-radius: 16px; padding: 20px; margin-bottom: 32px; text-align: left; }
-        .steps p { font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; }
-        .steps ol { font-size: 0.9rem; color: #636E72; padding-left: 20px; }
-        .steps li { margin-bottom: 6px; }
-        .link { color: #D97757; font-weight: 700; font-size: 0.9rem; }
-        .link:hover { text-decoration: underline; }
+        .btn { display: block; width: 100%; padding: 16px; background: #D97757; color: #fff; border: none; border-radius: 14px; font-size: 1rem; font-weight: 600; text-align: center; box-shadow: 0 4px 0 #C4684A; transition: transform 0.2s; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #C4684A; }
         .copy { margin-top: 24px; font-size: 0.75rem; color: #636E72; }
       `}</style>
       <div className="page">
@@ -32,15 +28,7 @@ export default function EmailConfirmedPage() {
               メールアドレスの確認が完了しました。<br />
               アプリに戻ってログインしてください。
             </p>
-            <div className="steps">
-              <p>ログイン手順：</p>
-              <ol>
-                <li>この画面を閉じる</li>
-                <li>子育て日記アプリを開く</li>
-                <li>登録したメール・パスワードでログイン</li>
-              </ol>
-            </div>
-            <Link href="/" className="link">トップページへ</Link>
+            <p style={{ color: '#636E72', fontSize: '0.95rem', lineHeight: 1.8 }}>この画面を閉じて、<br />アプリに戻ってログインしてください。</p>
           </div>
           <p className="copy">© 2025 子育て日記</p>
         </div>

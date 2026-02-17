@@ -114,15 +114,7 @@ export default function PasswordResetPage() {
                   パスワードの更新が完了しました！<br />
                   アプリに戻って新しいパスワードでログインしてください。
                 </p>
-                <div className="steps">
-                  <p>ログイン手順：</p>
-                  <ol>
-                    <li>この画面を閉じる</li>
-                    <li>子育て日記アプリを開く</li>
-                    <li>新しいパスワードでログイン</li>
-                  </ol>
-                </div>
-                <Link href="/" className="link">トップページへ</Link>
+                <p style={{ color: '#636E72', fontSize: '0.95rem', lineHeight: 1.8 }}>この画面を閉じて、<br />アプリに戻ってログインしてください。</p>
               </>
             ) : (
               <>
