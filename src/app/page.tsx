@@ -11,6 +11,7 @@ const features = [
   { icon: "📊", title: "週間・月間まとめ", desc: "記録を自動集計してグラフ表示。授乳回数や睡眠時間の推移がわかる。" },
   { icon: "📝", title: "写真付き日記", desc: "毎日の出来事を写真と一緒に記録。大切な思い出をいつでも振り返れる。" },
   { icon: "📄", title: "PDF出力", desc: "記録と日記をPDFに出力。印刷して成長記録アルバムに残せる。" },
+  { icon: "⌚", title: "Apple Watch対応", desc: "iPhoneを取り出さなくても手首からすぐに記録。ミルク量や体温はDigital Crownで直感的に入力。" },
   { icon: "🌙", title: "ダークモード対応", desc: "夜間の授乳中でもまぶしくない。端末の設定に合わせて自動切り替え。" },
   { icon: "👶", title: "きょうだい管理", desc: "複数のお子さまの記録を1つのアカウントで管理。切り替えもかんたん。" },
 ];
@@ -131,7 +132,7 @@ export default function HomePage() {
       <section className="hero">
         <div className="container hero-content">
           <div className="hero-text">
-            <div className="hero-badge">✨ 無料で使える</div>
+            <div className="hero-badge">⌚ Apple Watch対応！</div>
             <h1>毎日の<span className="hl">成長</span>を<br className="sp-hide" />かんたん記録</h1>
             <p className="hero-desc">授乳・おむつ・睡眠をワンタップで記録。忙しい育児中でもサッと使えます。</p>
             <a href={APP_STORE_URL} className="btn-primary">📱 App Store でダウンロード</a>
