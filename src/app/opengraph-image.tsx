@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
-export const alt = '子育て日記 - 赤ちゃんの成長をかんたん記録'
+export const alt = '子育て日記 - 話すだけで、記録になる育児日記アプリ'
 export const size = {
   width: 1200,
   height: 630,
@@ -81,9 +81,10 @@ export default async function OGImage() {
               fontSize: 20,
               fontWeight: 600,
               marginBottom: 32,
+              letterSpacing: '0.02em',
             }}
           >
-            ✨ 無料の育児記録アプリ
+            NEW ・ 話すだけ記録
           </div>
 
           {/* App icon + title */}
@@ -128,71 +129,49 @@ export default async function OGImage() {
               display: 'flex',
             }}
           >
-            毎日の成長をかんたん記録
+            話すだけで、記録になる。
           </div>
 
           {/* Description */}
           <div
             style={{
-              fontSize: 24,
+              fontSize: 22,
               color: '#636E72',
               textAlign: 'center',
               marginBottom: 40,
               display: 'flex',
             }}
           >
-            授乳・おむつ・睡眠をワンタップで記録。忙しい育児中でもサッと使えます。
+            AIが記録を自動で作成。夫婦・家族での共有にも対応。
           </div>
 
-          {/* Feature icons row - like LP feature cards */}
+          {/* Feature chips row - like LP feature cards, text only (no emoji) */}
           <div
             style={{
               display: 'flex',
-              gap: 20,
+              gap: 16,
             }}
           >
             {[
-              { icon: '🍼', label: 'ワンタップ記録' },
-              { icon: '⏱️', label: '授乳タイマー' },
-              { icon: '📅', label: 'タイムライン' },
-              { icon: '📊', label: 'まとめ' },
-              { icon: '📝', label: '日記' },
-              { icon: '🌙', label: 'ダークモード' },
-            ].map((f) => (
+              '話すだけ記録',
+              '夫婦・家族共有',
+              'Watch単体記録',
+              'PDF出力',
+            ].map((label) => (
               <div
-                key={f.label}
+                key={label}
                 style={{
                   display: 'flex',
-                  flexDirection: 'column',
                   alignItems: 'center',
-                  gap: 8,
+                  background: '#FFF9F7',
+                  borderRadius: 50,
+                  padding: '10px 20px',
+                  fontSize: 16,
+                  fontWeight: 500,
+                  color: '#D97757',
                 }}
               >
-                <div
-                  style={{
-                    width: 56,
-                    height: 56,
-                    background: '#FFF9F7',
-                    borderRadius: 16,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 28,
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-                  }}
-                >
-                  {f.icon}
-                </div>
-                <div
-                  style={{
-                    fontSize: 14,
-                    color: '#636E72',
-                    fontWeight: 500,
-                    display: 'flex',
-                  }}
-                >
-                  {f.label}
-                </div>
+                {label}
               </div>
             ))}
           </div>

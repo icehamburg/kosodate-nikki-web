@@ -4,27 +4,34 @@ import AuthRedirect from "./auth-redirect";
 
 const APP_STORE_URL = "https://apps.apple.com/jp/app/%E5%AD%90%E8%82%B2%E3%81%A6%E8%A8%98%E9%8C%B2%E6%97%A5%E8%A8%98/id6758967429";
 
-const features = [
-  { icon: "🍼", title: "ワンタップ記録", desc: "授乳、おむつ、睡眠、体温、身長・体重など、よく使う記録をホーム画面からワンタップで入力。" },
-  { icon: "⏱️", title: "授乳タイマー", desc: "母乳は左右別々にストップウォッチで計測。片手でかんたん操作。" },
-  { icon: "📅", title: "24時間タイムライン", desc: "1日の流れがひと目でわかるタイムライン。生活リズムの把握に便利。" },
-  { icon: "📊", title: "週間・月間まとめ", desc: "記録を自動集計してグラフ表示。授乳回数や睡眠時間の推移がわかる。" },
-  { icon: "📝", title: "写真付き日記", desc: "毎日の出来事を写真と一緒に記録。大切な思い出をいつでも振り返れる。" },
-  { icon: "📄", title: "PDF出力", desc: "記録と日記をPDFに出力。印刷して成長記録アルバムに残せる。" },
-  { icon: "⌚", title: "Apple Watch対応", desc: "iPhoneを取り出さなくても手首からすぐに記録。ミルク量や体温はDigital Crownで直感的に入力。" },
-  { icon: "🌙", title: "ダークモード対応", desc: "夜間の授乳中でもまぶしくない。端末の設定に合わせて自動切り替え。" },
-  { icon: "👶", title: "きょうだい管理", desc: "複数のお子さまの記録を1つのアカウントで管理。切り替えもかんたん。" },
+// 話すだけ記録・家族共有・Watch単体記録に続く「そのほかの機能」。番号は装飾ではなく整理のためのラベル。
+const compactFeatures = [
+  { n: "01", title: "音声で日記", desc: "話しかけると、AIがフィラーを取り除いて、やさしい日記に整えます。" },
+  { n: "02", title: "今日のひとこと", desc: "生後0日から366日、毎日ちがう観察コメントをお届けします。" },
+  { n: "03", title: "コラム", desc: "専門家の出典つき。北欧など海外の子育て観にも触れられます。" },
+  { n: "04", title: "励ましカード", desc: "短い言葉に、そっと背中を押してもらえる日があります。" },
+  { n: "05", title: "カレンダー・タイムライン", desc: "記録と日記をまとめて、1日・1週間の流れで振り返れます。" },
+  { n: "06", title: "まとめグラフ", desc: "授乳の回数や睡眠時間の推移が、ひと目でわかります。" },
+  { n: "07", title: "PDF書き出し", desc: "記録と日記を、そのまま思い出のアルバムに残せます。" },
+  { n: "08", title: "ダークモード", desc: "夜中の授乳でも、画面がまぶしくありません。" },
+  { n: "09", title: "きょうだい管理", desc: "複数のお子さまの記録も、ひとつのアカウントで見られます。" },
 ];
 
-const screenshots = [
+const galleryShots = [
   { src: "/screenshots/01_home.png", label: "ホーム" },
   { src: "/screenshots/02_timeline.png", label: "タイムライン" },
   { src: "/screenshots/03_breastfeeding.png", label: "授乳タイマー" },
+  { src: "/screenshots/04_diary.png", label: "日記" },
   { src: "/screenshots/05_calendar.png", label: "カレンダー" },
   { src: "/screenshots/06_summary.png", label: "まとめ" },
-  { src: "/screenshots/04_diary.png", label: "日記" },
   { src: "/screenshots/07_pdf.png", label: "PDF出力" },
   { src: "/screenshots/08_darkmode.png", label: "ダークモード" },
+];
+
+const reassurance = [
+  { n: "01", title: "保存前に確認できます", desc: "話すだけ記録も、音声日記も、AIが作った内容をそのまま保存することはありません。確認してから保存できます。" },
+  { n: "02", title: "データはご本人と家族のもの", desc: "記録や日記を見られるのは、ご本人と、招待コードで共有した家族だけです。" },
+  { n: "03", title: "広告はありません", desc: "アプリの中に広告を表示することはありません。" },
 ];
 
 export default function HomePage() {
@@ -32,83 +39,131 @@ export default function HomePage() {
     <>
       <AuthRedirect />
       <style>{`
-        .header { background: #fff; padding: 16px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        :root {
+          --primary: #D97757;
+          --primary-hover: #C4684A;
+          --bg: #F5F0EA;
+          --bg-soft: #FFFCF8;
+          --card: #FFFFFF;
+          --text: #3C3A37;
+          --text-secondary: #6B7280;
+          --text-muted: #9C9590;
+          --border: #E5E7EB;
+          --accent-warm: #EDE0CF;
+        }
+        .header { background: rgba(255,252,248,0.9); backdrop-filter: blur(8px); padding: 16px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; border-bottom: 1px solid var(--border); }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; gap: 12px; font-size: 1.4rem; font-weight: 700; color: #D97757; }
+        .logo { display: flex; align-items: center; gap: 12px; font-size: 1.4rem; font-weight: 700; color: var(--primary); }
         .logo-icon { width: 40px; height: 40px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
         nav { display: flex; gap: 32px; }
-        nav a { color: #636E72; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
-        nav a:hover { color: #D97757; }
-        .header-cta { background: #D97757; color: #fff; padding: 10px 24px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; transition: transform 0.2s, box-shadow 0.2s; display: inline-block; }
+        nav a { color: var(--text-secondary); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+        nav a:hover { color: var(--primary); }
+        .header-cta { background: var(--primary); color: #fff; padding: 10px 24px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; transition: transform 0.2s, box-shadow 0.2s; display: inline-block; }
         .header-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        .hero { background: linear-gradient(180deg, #FFF9F7 0%, #fff 100%); padding: 160px 0 100px; position: relative; overflow: hidden; }
+
+        .hero { background: linear-gradient(180deg, var(--bg) 0%, #fff 100%); padding: 168px 0 100px; position: relative; overflow: hidden; }
         .hero-content { display: flex; align-items: center; gap: 60px; position: relative; z-index: 1; }
         .hero-text { flex: 1; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 2px solid #D97757; color: #D97757; padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; }
-        .hero h1 { font-size: 3.2rem; font-weight: 700; line-height: 1.3; margin-bottom: 24px; }
-        .hero h1 .hl { color: #D97757; }
-        .hero-desc { font-size: 1.2rem; color: #636E72; margin-bottom: 40px; max-width: 480px; }
-        .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #D97757; color: #fff; padding: 16px 32px; border-radius: 16px; font-weight: 600; font-size: 1.1rem; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 0 #C4684A; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #C4684A; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 2px solid var(--primary); color: var(--primary); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.02em; }
+        .hero h1 { font-size: 3.1rem; font-weight: 700; line-height: 1.35; margin-bottom: 24px; }
+        .hero h1 .hl { color: var(--primary); }
+        .hero-desc { font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 32px; max-width: 480px; line-height: 1.8; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; padding: 16px 32px; border-radius: 16px; font-weight: 600; font-size: 1.1rem; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 0 var(--primary-hover); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--primary-hover); }
+        .hero-note { margin-top: 16px; font-size: 0.9rem; color: var(--text-muted); }
         .hero-phone { flex: 0 0 320px; }
         .phone-mockup { position: relative; }
-        .phone-mockup img { width: 100%; border-radius: 40px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .phone-mockup::before { content: ''; position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px; background: linear-gradient(135deg, #D97757 0%, #FFB088 100%); border-radius: 50px; z-index: -1; opacity: 0.2; }
-        .features { padding: 120px 0; background: #fff; }
-        .section-header { text-align: center; margin-bottom: 80px; }
-        .section-label { display: inline-block; background: #FFF9F7; color: #D97757; padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 16px; }
-        .section-header h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; }
-        .section-header p { color: #636E72; font-size: 1.1rem; }
-        .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-        .feature-card { display: flex; gap: 24px; padding: 32px; background: #FFF9F7; border-radius: 24px; transition: transform 0.3s, box-shadow 0.3s; }
-        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .feature-icon { flex: 0 0 64px; height: 64px; background: #fff; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        .feature-content h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 8px; }
-        .feature-content p { color: #636E72; font-size: 0.95rem; }
-        .screenshots { padding: 120px 0; background: linear-gradient(180deg, #FFF9F7 0%, #fff 100%); }
-        .screenshot-carousel { display: flex; gap: 24px; overflow-x: auto; padding: 40px 0; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-        .screenshot-item { flex: 0 0 280px; scroll-snap-align: center; }
-        .screenshot-item img { width: 100%; border-radius: 32px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .phone-mockup img { width: 100%; border-radius: 40px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.12); }
+        .phone-mockup::before { content: ''; position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px; background: linear-gradient(135deg, var(--primary) 0%, #FFB088 100%); border-radius: 50px; z-index: -1; opacity: 0.18; }
+
+        .feature-detail { padding: 100px 0; }
+        .feature-detail-inner { display: flex; align-items: center; gap: 72px; }
+        .feature-detail-inner.reverse { flex-direction: row-reverse; }
+        .feature-text { flex: 1; }
+        .feature-label { display: inline-block; color: var(--primary); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 16px; }
+        .feature-text h2 { font-size: 2.1rem; font-weight: 700; line-height: 1.45; margin-bottom: 20px; }
+        .feature-text p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.85; max-width: 460px; }
+        .feature-text .feature-meta { margin-top: 24px; font-size: 0.9rem; color: var(--text-muted); }
+        .feature-visual { flex: 0 0 auto; display: flex; gap: 20px; }
+        .feature-visual .phone-mockup { width: 200px; }
+        .feature-visual .phone-mockup img { border-radius: 28px; box-shadow: 0 16px 20px -6px rgba(0,0,0,0.12); }
+        .feature-visual .phone-mockup.single { width: 260px; }
+        .feature-visual .phone-mockup:nth-child(2) { margin-top: 48px; }
+
+        .strip { padding: 40px 0; text-align: center; }
+        .strip p { color: var(--text-secondary); font-size: 1rem; }
+        .strip strong { color: var(--text); font-weight: 600; }
+
+        .reassure { padding: 100px 0; background: var(--bg); }
+        .reassure-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 64px; }
+        .reassure-item .num { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--primary); color: var(--primary); font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; }
+        .reassure-item h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 10px; }
+        .reassure-item p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; }
+
+        .compact-section { padding: 120px 0; background: #fff; }
+        .section-header { text-align: center; margin-bottom: 72px; }
+        .section-label { display: inline-block; background: var(--bg-soft); color: var(--primary); padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 16px; }
+        .section-header h2 { font-size: 2.3rem; font-weight: 700; margin-bottom: 16px; }
+        .section-header p { color: var(--text-secondary); font-size: 1.05rem; }
+        .compact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 80px; }
+        .compact-card { padding: 28px; background: var(--bg-soft); border-radius: 20px; }
+        .compact-card .num { display: block; font-size: 0.8rem; font-weight: 700; color: var(--primary); letter-spacing: 0.06em; margin-bottom: 12px; }
+        .compact-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+        .compact-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.75; }
+
+        .screenshot-carousel { display: flex; gap: 24px; overflow-x: auto; padding: 8px 0 24px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .screenshot-item { flex: 0 0 220px; scroll-snap-align: center; }
+        .screenshot-item img { width: 100%; border-radius: 28px; box-shadow: 0 16px 20px -6px rgba(0,0,0,0.1); transition: transform 0.3s; }
         .screenshot-item:hover img { transform: scale(1.02); }
-        .screenshot-item p { text-align: center; margin-top: 16px; font-weight: 500; color: #636E72; }
-        .cta { padding: 100px 0; background: linear-gradient(135deg, #D97757 0%, #E8967E 100%); text-align: center; color: #fff; }
-        .cta h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; }
-        .cta p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 40px; }
-        .cta .btn-primary { background: #fff; color: #D97757; box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
+        .screenshot-item p { text-align: center; margin-top: 14px; font-weight: 500; color: var(--text-secondary); font-size: 0.9rem; }
+
+        .cta { padding: 100px 0; background: linear-gradient(135deg, var(--primary) 0%, #E8967E 100%); text-align: center; color: #fff; }
+        .cta h2 { font-size: 2.4rem; font-weight: 700; margin-bottom: 16px; line-height: 1.4; }
+        .cta p { font-size: 1.1rem; opacity: 0.92; margin-bottom: 40px; }
+        .cta .btn-primary { background: #fff; color: var(--primary); box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
+
         .support { padding: 100px 0; background: #fff; }
-        .support-card { max-width: 600px; margin: 0 auto; text-align: center; background: #FFF9F7; padding: 60px 40px; border-radius: 32px; }
-        .support-icon { width: 80px; height: 80px; background: #fff; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        .support-card h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
-        .support-card p { color: #636E72; margin-bottom: 32px; }
-        .support-email { display: inline-flex; align-items: center; gap: 8px; background: #D97757; color: #fff; padding: 16px 32px; border-radius: 16px; font-weight: 600; transition: transform 0.2s; box-shadow: 0 4px 0 #C4684A; }
+        .support-card { max-width: 600px; margin: 0 auto; text-align: center; background: var(--bg-soft); padding: 60px 40px; border-radius: 32px; }
+        .support-card h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 16px; }
+        .support-card p { color: var(--text-secondary); margin-bottom: 32px; }
+        .support-email { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; padding: 16px 32px; border-radius: 16px; font-weight: 600; transition: transform 0.2s; box-shadow: 0 4px 0 var(--primary-hover); }
         .support-email:hover { transform: translateY(-2px); }
-        footer { background: #2D3436; color: rgba(255,255,255,0.7); padding: 60px 0 40px; }
+
+        footer { background: #1A1614; color: rgba(232,224,216,0.7); padding: 60px 0 40px; }
         .footer-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-        .footer-logo { display: flex; align-items: center; gap: 12px; font-size: 1.2rem; font-weight: 700; color: #fff; }
-        .footer-links { display: flex; gap: 32px; }
-        .footer-links a { color: rgba(255,255,255,0.7); font-size: 0.9rem; transition: color 0.2s; }
-        .footer-links a:hover { color: #fff; }
-        .footer-bottom { text-align: center; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
+        .footer-logo { display: flex; align-items: center; gap: 12px; font-size: 1.2rem; font-weight: 700; color: #E8E0D8; }
+        .footer-links { display: flex; gap: 32px; flex-wrap: wrap; }
+        .footer-links a { color: rgba(232,224,216,0.7); font-size: 0.9rem; transition: color 0.2s; }
+        .footer-links a:hover { color: #E8E0D8; }
+        .footer-bottom { text-align: center; padding-top: 40px; border-top: 1px solid rgba(232,224,216,0.1); font-size: 0.9rem; }
+
         @media (max-width: 900px) {
           .hero-content { flex-direction: column-reverse; text-align: center; }
-          .hero h1 { font-size: 2.4rem; }
+          .hero h1 { font-size: 2.3rem; }
           .hero-desc { margin-left: auto; margin-right: auto; }
           .hero-phone { flex: 0 0 260px; }
-          .feature-grid { grid-template-columns: 1fr; }
           nav, .header-cta { display: none; }
+          .feature-detail-inner, .feature-detail-inner.reverse { flex-direction: column; text-align: center; gap: 40px; }
+          .feature-text p { margin-left: auto; margin-right: auto; }
+          .feature-visual { justify-content: center; }
+          .feature-visual .phone-mockup:nth-child(2) { margin-top: 0; }
+          .reassure-grid { grid-template-columns: 1fr; gap: 32px; }
+          .compact-grid { grid-template-columns: 1fr 1fr; }
           .footer-content { flex-direction: column; gap: 24px; }
           .sp-hide { display: none; }
         }
         @media (max-width: 600px) {
-          .hero h1 { font-size: 2rem; }
+          .hero h1 { font-size: 1.9rem; }
           .hero-desc { font-size: 1.05rem; }
-          .section-header h2 { font-size: 1.8rem; }
-          .feature-card { flex-direction: column; text-align: center; }
-          .feature-icon { margin: 0 auto; background: transparent; box-shadow: none; }
-          .cta h2 { font-size: 1.8rem; }
+          .section-header h2 { font-size: 1.7rem; }
+          .feature-text h2 { font-size: 1.6rem; }
+          .feature-visual { flex-direction: column; align-items: center; }
+          .feature-visual .phone-mockup:nth-child(2) { margin-top: 0; }
+          .compact-grid { grid-template-columns: 1fr; }
+          .cta h2 { font-size: 1.7rem; }
           .support-card { padding: 40px 24px; }
-          .support-card h2 { font-size: 1.6rem; }
+          .support-card h2 { font-size: 1.5rem; }
         }
       `}</style>
 
@@ -120,8 +175,9 @@ export default function HomePage() {
             子育て日記
           </Link>
           <nav>
+            <a href="#voice">話すだけ記録</a>
+            <a href="#family">家族で共有</a>
             <a href="#features">機能</a>
-            <a href="#screenshots">スクショ</a>
             <a href="#support">サポート</a>
           </nav>
           <a href={APP_STORE_URL} className="header-cta">ダウンロード</a>
@@ -132,67 +188,125 @@ export default function HomePage() {
       <section className="hero">
         <div className="container hero-content">
           <div className="hero-text">
-            <div className="hero-badge">⌚ Apple Watch対応！</div>
-            <h1>毎日の<span className="hl">成長</span>を<br className="sp-hide" />かんたん記録</h1>
-            <p className="hero-desc">授乳・おむつ・睡眠をワンタップで記録。忙しい育児中でもサッと使えます。</p>
-            <a href={APP_STORE_URL} className="btn-primary">📱 App Store でダウンロード</a>
+            <div className="hero-badge">NEW ・ 話すだけ記録</div>
+            <h1>話すだけで、<br className="sp-hide" /><span className="hl">記録</span>になる。</h1>
+            <p className="hero-desc">「ミルク140飲んで、さっき寝たよ」と話しかけるだけで、AIがミルクや睡眠の記録を自動でつくります。内容はその場で確かめてから保存できます。</p>
+            <a href={APP_STORE_URL} className="btn-primary">App Store でダウンロード</a>
+            <p className="hero-note">Apple ID があれば、メール入力なしですぐにはじめられます。</p>
           </div>
           <div className="hero-phone">
             <div className="phone-mockup">
-              <Image src="/screenshots/01_home.png" alt="子育て日記 ホーム画面" width={320} height={693} priority />
+              <Image src="/screenshots/09_voice.png" alt="話すだけ記録 — 音声で記録している画面" width={320} height={693} priority />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="features" id="features">
+      {/* 話すだけ記録 */}
+      <section className="feature-detail" id="voice">
+        <div className="container feature-detail-inner">
+          <div className="feature-text">
+            <span className="feature-label">話すだけ記録</span>
+            <h2>話しかけるだけで、<br className="sp-hide" />記録データができあがります</h2>
+            <p>ミルクの量や眠った時間を、いちいち画面をタップして選ばなくても大丈夫です。話した内容からAIがミルク・睡眠などの記録項目を読み取り、記録の形にしてくれます。</p>
+            <p className="feature-meta">月20回まで無料で使えます。内容は保存前に確認できます。</p>
+          </div>
+          <div className="feature-visual">
+            <div className="phone-mockup">
+              <Image src="/screenshots/09_voice.png" alt="話すだけ記録 — 話しかけている最中の画面" width={200} height={433} />
+            </div>
+            <div className="phone-mockup">
+              <Image src="/screenshots/10_voice_confirm.png" alt="話すだけ記録 — AIが作成した記録を確認する画面" width={200} height={433} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 夫婦・家族共有 */}
+      <section className="feature-detail" id="family" style={{ background: 'var(--bg-soft)' }}>
+        <div className="container feature-detail-inner reverse">
+          <div className="feature-text">
+            <span className="feature-label">夫婦・家族共有</span>
+            <h2>6桁のコードで、<br className="sp-hide" />パートナーと記録を分け合えます</h2>
+            <p>発行した招待コードをパートナーに伝えるだけで、同じ記録や日記を一緒につけられるようになります。パートナーのApple Watchからも記録できるので、どちらかの手が離せないときも困りません。</p>
+          </div>
+          <div className="feature-visual">
+            <div className="phone-mockup single">
+              <Image src="/screenshots/11_family.png" alt="夫婦・家族共有 — 招待コードで家族を招待する画面" width={260} height={563} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Apple Watch単体記録 */}
+      <section className="feature-detail" id="watch">
+        <div className="container feature-detail-inner">
+          <div className="feature-text">
+            <span className="feature-label">Apple Watch単体記録</span>
+            <h2>iPhoneを開かなくても、<br className="sp-hide" />手首だけで記録が終わります</h2>
+            <p>Apple Watchだけで記録が完結します。電波が届かない場所でも記録は端末にそっと残り、つながったときに自動で送信されます。</p>
+          </div>
+          <div className="feature-visual">
+            <div className="phone-mockup single">
+              <Image src="/screenshots/12_watch.png" alt="Apple Watch単体記録 — Watchで記録を入力している画面" width={260} height={317} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 安心 */}
+      <section className="reassure" id="anshin">
         <div className="container">
           <div className="section-header">
-            <span className="section-label">🌟 機能紹介</span>
-            <h2>育児がもっとラクになる</h2>
-            <p>シンプルで使いやすい機能を揃えました</p>
+            <span className="section-label">安心して使えること</span>
+            <h2>そっと、確かめながら使えるように</h2>
           </div>
-          <div className="feature-grid">
-            {features.map((f) => (
-              <div key={f.title} className="feature-card">
-                <div className="feature-icon">{f.icon}</div>
-                <div className="feature-content">
-                  <h3>{f.title}</h3>
-                  <p>{f.desc}</p>
-                </div>
+          <div className="reassure-grid">
+            {reassurance.map((r) => (
+              <div key={r.n} className="reassure-item">
+                <span className="num">{r.n}</span>
+                <h3>{r.title}</h3>
+                <p>{r.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Screenshots */}
-      <section className="screenshots" id="screenshots">
+      {/* 既存機能（コンパクト） */}
+      <section className="compact-section" id="features">
         <div className="container">
           <div className="section-header">
-            <span className="section-label">📱 スクリーンショット</span>
-            <h2>アプリの画面をチェック</h2>
+            <span className="section-label">そのほかの機能</span>
+            <h2>毎日にそっと寄り添う機能</h2>
+            <p>話すだけ記録や家族共有のほかにも、こんな機能があります</p>
           </div>
-        </div>
-        <div className="screenshot-carousel">
-          <div style={{ flex: '0 0 40px' }} />
-          {screenshots.map((s) => (
-            <div key={s.label} className="screenshot-item">
-              <Image src={s.src} alt={s.label} width={280} height={607} />
-              <p>{s.label}</p>
-            </div>
-          ))}
-          <div style={{ flex: '0 0 40px' }} />
+          <div className="compact-grid">
+            {compactFeatures.map((f) => (
+              <div key={f.n} className="compact-card">
+                <span className="num">{f.n}</span>
+                <h3>{f.title}</h3>
+                <p>{f.desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="screenshot-carousel">
+            {galleryShots.map((s) => (
+              <div key={s.label} className="screenshot-item">
+                <Image src={s.src} alt={s.label} width={220} height={477} />
+                <p>{s.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="cta">
         <div className="container">
-          <h2>今すぐはじめよう</h2>
-          <p>無料でダウンロード</p>
-          <a href={APP_STORE_URL} className="btn-primary">📱 App Store でダウンロード</a>
+          <h2>今日から、話すだけで<br className="sp-hide" />記録してみませんか。</h2>
+          <p>無料ではじめられます。</p>
+          <a href={APP_STORE_URL} className="btn-primary">App Store でダウンロード</a>
         </div>
       </section>
 
@@ -200,10 +314,9 @@ export default function HomePage() {
       <section className="support" id="support">
         <div className="container">
           <div className="support-card">
-            <div className="support-icon">💬</div>
             <h2>サポート</h2>
             <p>アプリに関するご質問、ご要望、不具合のご報告など、お気軽にお問い合わせください。</p>
-            <a href="mailto:icehamburgs@gmail.com" className="support-email">📧 メールで問い合わせ</a>
+            <a href="mailto:icehamburgs@gmail.com" className="support-email">メールで問い合わせ</a>
           </div>
         </div>
       </section>
@@ -217,6 +330,8 @@ export default function HomePage() {
               子育て日記
             </Link>
             <div className="footer-links">
+              <a href="#voice">話すだけ記録</a>
+              <a href="#family">家族で共有</a>
               <a href="#features">機能</a>
               <a href="#support">サポート</a>
               <Link href="/privacy">プライバシーポリシー</Link>
