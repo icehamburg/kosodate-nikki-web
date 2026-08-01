@@ -196,7 +196,7 @@ export default function HomePage() {
           </div>
           <div className="hero-phone">
             <div className="phone-mockup">
-              <Image src="/screenshots/09_voice.png" alt="話すだけ記録 — 音声で記録している画面" width={320} height={693} priority />
+              <Image src="/screenshots/09_voice.png" alt="話すだけ記録 — 音声で記録している画面" width={320} height={695} priority />
             </div>
           </div>
         </div>
@@ -213,10 +213,10 @@ export default function HomePage() {
           </div>
           <div className="feature-visual">
             <div className="phone-mockup">
-              <Image src="/screenshots/09_voice.png" alt="話すだけ記録 — 話しかけている最中の画面" width={200} height={433} />
+              <Image src="/screenshots/09_voice.png" alt="話すだけ記録 — 話しかけている最中の画面" width={200} height={434} />
             </div>
             <div className="phone-mockup">
-              <Image src="/screenshots/10_voice_confirm.png" alt="話すだけ記録 — AIが作成した記録を確認する画面" width={200} height={433} />
+              <Image src="/screenshots/10_voice_confirm.png" alt="話すだけ記録 — AIが作成した記録を確認する画面" width={200} height={434} />
             </div>
           </div>
         </div>
@@ -232,7 +232,7 @@ export default function HomePage() {
           </div>
           <div className="feature-visual">
             <div className="phone-mockup single">
-              <Image src="/screenshots/11_family.png" alt="夫婦・家族共有 — 招待コードで家族を招待する画面" width={260} height={563} />
+              <Image src="/screenshots/11_family.png" alt="夫婦・家族共有 — 招待コードで家族を招待する画面" width={260} height={565} />
             </div>
           </div>
         </div>
@@ -248,7 +248,7 @@ export default function HomePage() {
           </div>
           <div className="feature-visual">
             <div className="phone-mockup single">
-              <Image src="/screenshots/12_watch.png" alt="Apple Watch単体記録 — Watchで記録を入力している画面" width={260} height={317} />
+              <Image src="/screenshots/12_watch.png" alt="Apple Watch単体記録 — Watchで記録を入力している画面" width={260} height={241} />
             </div>
           </div>
         </div>
@@ -293,7 +293,7 @@ export default function HomePage() {
           <div className="screenshot-carousel">
             {galleryShots.map((s) => (
               <div key={s.label} className="screenshot-item">
-                <Image src={s.src} alt={s.label} width={220} height={477} />
+                <Image src={s.src} alt={s.label} width={220} height={478} />
                 <p>{s.label}</p>
               </div>
             ))}
