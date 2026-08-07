@@ -74,7 +74,8 @@ export default function HomePage() {
         .hero-note { margin-top: 16px; font-size: 0.9rem; color: var(--text-muted); }
         .hero-phone { flex: 0 0 320px; }
         .phone-mockup { position: relative; }
-        .phone-mockup img { width: 100%; border-radius: 40px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.12); }
+        /* height:auto がないと width/height 属性の高さが効いたままになり、幅を変えた瞬間に縦横比が崩れる */
+        .phone-mockup img { display: block; width: 100%; height: auto; border-radius: 40px; border: 1px solid rgba(60,58,55,0.08); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.12); }
         .phone-mockup::before { content: ''; position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px; background: linear-gradient(135deg, var(--primary) 0%, #FFB088 100%); border-radius: 50px; z-index: -1; opacity: 0.18; }
 
         .feature-detail { padding: 100px 0; }
@@ -85,10 +86,13 @@ export default function HomePage() {
         .feature-text h2 { font-size: 2.1rem; font-weight: 700; line-height: 1.45; margin-bottom: 20px; }
         .feature-text p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.85; max-width: 460px; }
         .feature-text .feature-meta { margin-top: 24px; font-size: 0.9rem; color: var(--text-muted); }
-        .feature-visual { flex: 0 0 auto; display: flex; gap: 20px; }
-        .feature-visual .phone-mockup { width: 200px; }
+        .feature-visual { flex: 0 0 auto; display: flex; align-items: flex-start; gap: 24px; }
+        .feature-visual .phone-mockup { width: 220px; }
         .feature-visual .phone-mockup img { border-radius: 28px; box-shadow: 0 16px 20px -6px rgba(0,0,0,0.12); }
+        /* グローは1枚置きの .single だけ。2枚並びだと重なって塊に見えるため出さない */
+        .feature-visual .phone-mockup:not(.single)::before { display: none; }
         .feature-visual .phone-mockup.single { width: 260px; }
+        .feature-visual .phone-mockup.single::before { top: -16px; left: -16px; right: -16px; bottom: -16px; border-radius: 40px; }
         .feature-visual .phone-mockup:nth-child(2) { margin-top: 48px; }
 
         .strip { padding: 40px 0; text-align: center; }
@@ -114,7 +118,7 @@ export default function HomePage() {
 
         .screenshot-carousel { display: flex; gap: 24px; overflow-x: auto; padding: 8px 0 24px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
         .screenshot-item { flex: 0 0 220px; scroll-snap-align: center; }
-        .screenshot-item img { width: 100%; border-radius: 28px; box-shadow: 0 16px 20px -6px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .screenshot-item img { display: block; width: 100%; height: auto; border-radius: 28px; box-shadow: 0 16px 20px -6px rgba(0,0,0,0.1); transition: transform 0.3s; }
         .screenshot-item:hover img { transform: scale(1.02); }
         .screenshot-item p { text-align: center; margin-top: 14px; font-weight: 500; color: var(--text-secondary); font-size: 0.9rem; }
 
@@ -158,8 +162,9 @@ export default function HomePage() {
           .hero-desc { font-size: 1.05rem; }
           .section-header h2 { font-size: 1.7rem; }
           .feature-text h2 { font-size: 1.6rem; }
-          .feature-visual { flex-direction: column; align-items: center; }
-          .feature-visual .phone-mockup:nth-child(2) { margin-top: 0; }
+          /* 2枚は「話す→確認」の対なので縦に積まず、横並びのまま縮める */
+          .feature-visual { gap: 16px; }
+          .feature-visual .phone-mockup { width: 150px; }
           .compact-grid { grid-template-columns: 1fr; }
           .cta h2 { font-size: 1.7rem; }
           .support-card { padding: 40px 24px; }
