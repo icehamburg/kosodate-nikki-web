@@ -2,42 +2,65 @@ import Image from "next/image";
 import Link from "next/link";
 import AuthRedirect from "./auth-redirect";
 
+// TODO(ASO): App Store Connect でキャンペーンリンクを発行したら差し替える。
+// 形式: https://apps.apple.com/app/apple-store/id6758967429?pt=<プロバイダトークン>&ct=lp&mt=8
+// pt はASC(App Analytics → キャンペーン)でしか発行できない。素のURLだと参照元Webに合算され施策別に見えない。
 const APP_STORE_URL = "https://apps.apple.com/jp/app/%E5%AD%90%E8%82%B2%E3%81%A6%E8%A8%98%E9%8C%B2%E6%97%A5%E8%A8%98/id6758967429";
 
 // 話すだけ記録・家族共有・Watch単体記録に続く「そのほかの機能」。番号は装飾ではなく整理のためのラベル。
 const compactFeatures = [
   { n: "01", title: "音声で日記", desc: "話しかけると、AIがフィラーを取り除いて、やさしい日記に整えます。" },
-  { n: "02", title: "今日のひとこと", desc: "生後0日から366日、毎日ちがう観察コメントをお届けします。" },
-  { n: "03", title: "コラム", desc: "専門家の出典つき。北欧など海外の子育て観にも触れられます。" },
-  { n: "04", title: "励ましカード", desc: "短い言葉に、そっと背中を押してもらえる日があります。" },
-  { n: "05", title: "カレンダー・タイムライン", desc: "記録と日記をまとめて、1日・1週間の流れで振り返れます。" },
-  { n: "06", title: "まとめグラフ", desc: "授乳の回数や睡眠時間の推移が、ひと目でわかります。" },
-  { n: "07", title: "PDF書き出し", desc: "記録と日記を、そのまま思い出のアルバムに残せます。" },
-  { n: "08", title: "ダークモード", desc: "夜中の授乳でも、画面がまぶしくありません。" },
-  { n: "09", title: "きょうだい管理", desc: "複数のお子さまの記録も、ひとつのアカウントで見られます。" },
+  { n: "02", title: "今日のひとこと", desc: "生後0日から3歳まで、その日の月齢に合わせた観察コメントをお届けします。" },
+  { n: "03", title: "思い出カード", desc: "1年前・半年前・3ヶ月前の今日の日記が、ホームにそっと現れます。" },
+  { n: "04", title: "月齢記念カード", desc: "生後◯ヶ月の記念日に、写真と月齢を入れたカードを作って共有できます。" },
+  { n: "05", title: "励ましカード", desc: "実在の出典つきの60枚。短い言葉に、そっと背中を押してもらえる日があります。" },
+  { n: "06", title: "コラム", desc: "専門家の出典つき。北欧など海外の子育て観にも触れられます。" },
+  { n: "07", title: "カレンダー・タイムライン", desc: "記録と日記をまとめて、1日・1週間の流れで振り返れます。" },
+  { n: "08", title: "まとめグラフ", desc: "授乳の回数や睡眠時間の推移が、ひと目でわかります。" },
+  { n: "09", title: "PDF書き出し", desc: "記録と日記を、そのまま思い出のアルバムに残せます。" },
+  { n: "10", title: "夜の日記リマインド", desc: "その日の日記を書いた夜には届かない、控えめなお知らせです。" },
+  { n: "11", title: "ダークモード", desc: "夜中の授乳でも、画面がまぶしくありません。" },
+  { n: "12", title: "きょうだい管理", desc: "複数のお子さまの記録も、ひとつのアカウントで見られます。" },
 ];
 
+// alt はASO語彙(育児記録・授乳)と接続するため、ラベルより説明的に書く
 const galleryShots = [
-  { src: "/screenshots/01_home.png", label: "ホーム" },
-  { src: "/screenshots/02_timeline.png", label: "タイムライン" },
-  { src: "/screenshots/03_breastfeeding.png", label: "授乳タイマー" },
-  { src: "/screenshots/04_diary.png", label: "日記" },
-  { src: "/screenshots/05_calendar.png", label: "カレンダー" },
-  { src: "/screenshots/06_summary.png", label: "まとめ" },
-  { src: "/screenshots/07_pdf.png", label: "PDF出力" },
-  { src: "/screenshots/08_darkmode.png", label: "ダークモード" },
+  { src: "/screenshots/01_home.png", label: "ホーム", alt: "育児記録アプリ「子育て日記」のホーム画面" },
+  { src: "/screenshots/02_timeline.png", label: "タイムライン", alt: "育児記録を時系列で振り返るタイムライン画面" },
+  { src: "/screenshots/03_breastfeeding.png", label: "授乳タイマー", alt: "授乳を左右べつべつに計測できる授乳タイマー画面" },
+  { src: "/screenshots/04_diary.png", label: "日記", alt: "音声から作った育児日記の画面" },
+  { src: "/screenshots/05_calendar.png", label: "カレンダー", alt: "育児記録をカレンダーで見わたす画面" },
+  { src: "/screenshots/06_summary.png", label: "まとめ", alt: "授乳回数や睡眠時間のまとめグラフ画面" },
+  { src: "/screenshots/07_pdf.png", label: "PDF出力", alt: "育児記録と日記をPDFに書き出す画面" },
+  { src: "/screenshots/08_darkmode.png", label: "ダークモード", alt: "夜間の授乳向けダークモード画面" },
 ];
 
 const reassurance = [
-  { n: "01", title: "保存前に確認できます", desc: "話すだけ記録も、音声日記も、AIが作った内容をそのまま保存することはありません。確認してから保存できます。" },
-  { n: "02", title: "データはご本人と家族のもの", desc: "記録や日記を見られるのは、ご本人と、招待コードで共有した家族だけです。" },
-  { n: "03", title: "広告はありません", desc: "アプリの中に広告を表示することはありません。" },
+  { n: "01", title: "保存前に確認できます", desc: "話すだけ記録も、音声日記も、AIが作った内容をそのまま保存することはありません。確認してから保存できます。", img: "/illustrations/anshin-check.png", alt: "AIが作った育児記録を、スマホで確認してチェックを入れるイラスト" },
+  { n: "02", title: "データはご本人と家族のもの", desc: "記録や日記を見られるのは、ご本人と、招待コードで共有した家族だけです。", img: "/illustrations/anshin-family.png", alt: "家のかたちの中で寄り添う夫婦と赤ちゃんのイラスト" },
+  { n: "03", title: "広告はありません", desc: "アプリの中に広告を表示することはありません。", img: "/illustrations/anshin-noad.png", alt: "月あかりの下でしずかに眠る赤ちゃんのイラスト" },
 ];
 
 export default function HomePage() {
   return (
     <>
       <AuthRedirect />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MobileApplication",
+            name: "子育て日記",
+            description:
+              "話すだけで育児記録がつくれるアプリ。授乳・ミルク・睡眠の記録、音声日記、夫婦での共有、Apple Watch単体での記録に対応。",
+            operatingSystem: "iOS",
+            applicationCategory: "LifestyleApplication",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "JPY" },
+            installUrl: APP_STORE_URL,
+          }),
+        }}
+      />
       <style>{`
         :root {
           --primary: #D97757;
@@ -86,6 +109,9 @@ export default function HomePage() {
         .feature-text h2 { font-size: 2.1rem; font-weight: 700; line-height: 1.45; margin-bottom: 20px; }
         .feature-text p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.85; max-width: 460px; }
         .feature-text .feature-meta { margin-top: 24px; font-size: 0.9rem; color: var(--text-muted); }
+        .share-steps { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+        .share-steps li { display: flex; align-items: center; gap: 12px; font-size: 0.98rem; color: var(--text); }
+        .share-steps .step-num { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--primary); color: var(--primary); font-size: 0.8rem; font-weight: 700; }
         .feature-visual { flex: 0 0 auto; display: flex; align-items: flex-start; gap: 24px; }
         .feature-visual .phone-mockup { width: 220px; }
         .feature-visual .phone-mockup img { border-radius: 28px; box-shadow: 0 16px 20px -6px rgba(0,0,0,0.12); }
@@ -94,6 +120,8 @@ export default function HomePage() {
         .feature-visual .phone-mockup.single { width: 260px; }
         .feature-visual .phone-mockup.single::before { top: -16px; left: -16px; right: -16px; bottom: -16px; border-radius: 40px; }
         .feature-visual .phone-mockup:nth-child(2) { margin-top: 48px; }
+        /* 透過イラスト用。スマホ枠(角丸・枠線・影)は付けない */
+        .feature-visual .feature-illust { width: 320px; height: auto; }
 
         .strip { padding: 40px 0; text-align: center; }
         .strip p { color: var(--text-secondary); font-size: 1rem; }
@@ -101,6 +129,7 @@ export default function HomePage() {
 
         .reassure { padding: 100px 0; background: var(--bg); }
         .reassure-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 64px; }
+        .reassure-item .illust { display: block; width: 152px; height: auto; margin-bottom: 24px; }
         .reassure-item .num { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--primary); color: var(--primary); font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; }
         .reassure-item h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 10px; }
         .reassure-item p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; }
@@ -123,6 +152,7 @@ export default function HomePage() {
         .screenshot-item p { text-align: center; margin-top: 14px; font-weight: 500; color: var(--text-secondary); font-size: 0.9rem; }
 
         .cta { padding: 100px 0; background: linear-gradient(135deg, var(--primary) 0%, #E8967E 100%); text-align: center; color: #fff; }
+        .cta-illust { display: block; width: min(360px, 72vw); height: auto; margin: 0 auto 12px; }
         .cta h2 { font-size: 2.4rem; font-weight: 700; margin-bottom: 16px; line-height: 1.4; }
         .cta p { font-size: 1.1rem; opacity: 0.92; margin-bottom: 40px; }
         .cta .btn-primary { background: #fff; color: var(--primary); box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
@@ -150,6 +180,8 @@ export default function HomePage() {
           nav, .header-cta { display: none; }
           .feature-detail-inner, .feature-detail-inner.reverse { flex-direction: column; text-align: center; gap: 40px; }
           .feature-text p { margin-left: auto; margin-right: auto; }
+          /* 各行を個別にセンタリングすると丸数字がジグザグになるため、ブロックごと中央へ */
+          .share-steps { width: fit-content; margin-left: auto; margin-right: auto; text-align: left; }
           .feature-visual { justify-content: center; }
           .feature-visual .phone-mockup:nth-child(2) { margin-top: 0; }
           .reassure-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -193,15 +225,15 @@ export default function HomePage() {
       <section className="hero">
         <div className="container hero-content">
           <div className="hero-text">
-            <div className="hero-badge">NEW ・ 話すだけ記録</div>
+            <div className="hero-badge">話すだけの育児記録アプリ</div>
             <h1>話すだけで、<br className="sp-hide" /><span className="hl">記録</span>になる。</h1>
-            <p className="hero-desc">「ミルク140飲んで、さっき寝たよ」と話しかけるだけで、AIがミルクや睡眠の記録を自動でつくります。内容はその場で確かめてから保存できます。</p>
+            <p className="hero-desc">「ミルク140飲んで、さっき寝たよ」と話しかけるだけで、AIが授乳・ミルク・睡眠の育児記録を自動でつくります。内容はその場で確かめてから保存できます。</p>
             <a href={APP_STORE_URL} className="btn-primary">App Store でダウンロード</a>
             <p className="hero-note">Apple ID があれば、メール入力なしですぐにはじめられます。</p>
           </div>
           <div className="hero-phone">
             <div className="phone-mockup">
-              <Image src="/screenshots/09_voice.png" alt="話すだけ記録 — 音声で記録している画面" width={320} height={695} priority />
+              <Image src="/screenshots/09_voice.png" alt="話すだけ記録 — 音声で授乳・ミルクの育児記録をつけている画面" width={320} height={695} priority />
             </div>
           </div>
         </div>
@@ -212,16 +244,16 @@ export default function HomePage() {
         <div className="container feature-detail-inner">
           <div className="feature-text">
             <span className="feature-label">話すだけ記録</span>
-            <h2>話しかけるだけで、<br className="sp-hide" />記録データができあがります</h2>
-            <p>ミルクの量や眠った時間を、いちいち画面をタップして選ばなくても大丈夫です。話した内容からAIがミルク・睡眠などの記録項目を読み取り、記録の形にしてくれます。</p>
+            <h2>話しかけるだけで、<br className="sp-hide" />育児記録ができあがります</h2>
+            <p>ミルクの量や眠った時間を、いちいち画面をタップして選ばなくても大丈夫です。話した内容からAIが授乳・ミルク・睡眠などの記録項目を読み取り、記録の形にしてくれます。</p>
             <p className="feature-meta">月20回まで無料で使えます。内容は保存前に確認できます。</p>
           </div>
           <div className="feature-visual">
             <div className="phone-mockup">
-              <Image src="/screenshots/09_voice.png" alt="話すだけ記録 — 話しかけている最中の画面" width={200} height={434} />
+              <Image src="/screenshots/09_voice.png" alt="話すだけ記録 — 音声で育児記録を話しかけている最中の画面" width={200} height={434} />
             </div>
             <div className="phone-mockup">
-              <Image src="/screenshots/10_voice_confirm.png" alt="話すだけ記録 — AIが作成した記録を確認する画面" width={200} height={434} />
+              <Image src="/screenshots/10_voice_confirm.png" alt="話すだけ記録 — AIが作成した授乳・睡眠の記録を確認する画面" width={200} height={434} />
             </div>
           </div>
         </div>
@@ -232,12 +264,18 @@ export default function HomePage() {
         <div className="container feature-detail-inner reverse">
           <div className="feature-text">
             <span className="feature-label">夫婦・家族共有</span>
-            <h2>6桁のコードで、<br className="sp-hide" />パートナーと記録を分け合えます</h2>
-            <p>発行した招待コードをパートナーに伝えるだけで、同じ記録や日記を一緒につけられるようになります。パートナーのApple Watchからも記録できるので、どちらかの手が離せないときも困りません。</p>
+            <h2>6桁のコードで、<br className="sp-hide" />夫婦の育児記録がひとつになります</h2>
+            <p>6桁の招待コードを、LINEなどで1タップ送るだけ。同じ記録と日記を、ふたりで一緒につけられるようになります。パートナーのApple Watchからも記録できるので、どちらかの手が離せないときも困りません。</p>
+            <ol className="share-steps">
+              <li><span className="step-num">1</span>パートナーがアプリを入れる</li>
+              <li><span className="step-num">2</span>登録する</li>
+              <li><span className="step-num">3</span>招待コードを入力する</li>
+            </ol>
+            <p className="feature-meta">パートナー側の準備は、この3ステップだけです。</p>
           </div>
           <div className="feature-visual">
             <div className="phone-mockup single">
-              <Image src="/screenshots/11_family.png" alt="夫婦・家族共有 — 招待コードで家族を招待する画面" width={260} height={565} />
+              <Image src="/screenshots/11_family.png" alt="夫婦・家族共有 — 6桁の招待コードでパートナーと育児記録を共有する画面" width={260} height={565} />
             </div>
           </div>
         </div>
@@ -253,11 +291,30 @@ export default function HomePage() {
           </div>
           <div className="feature-visual">
             <div className="phone-mockup single">
-              <Image src="/screenshots/12_watch.png" alt="Apple Watch単体記録 — Watchで記録を入力している画面" width={260} height={241} />
+              <Image src="/screenshots/12_watch.png" alt="Apple Watch単体記録 — Watchだけで育児記録を入力している画面" width={260} height={241} />
             </div>
           </div>
         </div>
       </section>
+
+      {/*
+        成長グラフ(v2.4.0の身長・体重記録) — App Storeで v2.4.0 の公開を確認してから有効化する。
+        2026-08-25時点の公開版は v2.3.0(審査中のため掲載不可)。有効化はこのコメントを外すだけ。
+        イラストは public/illustrations/growth.png に配置済み(表示・型チェック検証済み)。
+
+      <section className="feature-detail" id="growth" style={{ background: 'var(--bg-soft)' }}>
+        <div className="container feature-detail-inner reverse">
+          <div className="feature-text">
+            <span className="feature-label">身長・体重の成長グラフ</span>
+            <h2>この子のペースの、<br className="sp-hide" />成長カーブだけ。</h2>
+            <p>身長と体重を記録すると、成長グラフになります。ほかの子と比べるための目盛りは、あえて置いていません。少しずつ伸びていく、この子だけのカーブを眺められます。</p>
+          </div>
+          <div className="feature-visual">
+            <Image src="/illustrations/growth.png" alt="身長・体重の育児記録からできる、この子だけの成長カーブをのぼる赤ちゃんのイラスト" width={320} height={320} className="feature-illust" />
+          </div>
+        </div>
+      </section>
+      */}
 
       {/* 安心 */}
       <section className="reassure" id="anshin">
@@ -269,6 +326,7 @@ export default function HomePage() {
           <div className="reassure-grid">
             {reassurance.map((r) => (
               <div key={r.n} className="reassure-item">
+                <Image src={r.img} alt={r.alt} width={152} height={152} className="illust" />
                 <span className="num">{r.n}</span>
                 <h3>{r.title}</h3>
                 <p>{r.desc}</p>
@@ -283,8 +341,8 @@ export default function HomePage() {
         <div className="container">
           <div className="section-header">
             <span className="section-label">そのほかの機能</span>
-            <h2>毎日にそっと寄り添う機能</h2>
-            <p>話すだけ記録や家族共有のほかにも、こんな機能があります</p>
+            <h2>育児の毎日にそっと寄り添う機能</h2>
+            <p>話すだけ記録や夫婦での共有のほかにも、こんな機能があります</p>
           </div>
           <div className="compact-grid">
             {compactFeatures.map((f) => (
@@ -298,7 +356,7 @@ export default function HomePage() {
           <div className="screenshot-carousel">
             {galleryShots.map((s) => (
               <div key={s.label} className="screenshot-item">
-                <Image src={s.src} alt={s.label} width={220} height={478} />
+                <Image src={s.src} alt={s.alt} width={220} height={478} />
                 <p>{s.label}</p>
               </div>
             ))}
@@ -309,6 +367,7 @@ export default function HomePage() {
       {/* CTA */}
       <section className="cta">
         <div className="container">
+          <Image src="/illustrations/cta-night.png" alt="夜、赤ちゃんを抱きながら話しかけて育児記録をつける親のイラスト" width={360} height={240} className="cta-illust" />
           <h2>今日から、話すだけで<br className="sp-hide" />記録してみませんか。</h2>
           <p>無料ではじめられます。</p>
           <a href={APP_STORE_URL} className="btn-primary">App Store でダウンロード</a>

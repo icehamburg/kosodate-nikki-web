@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
-export const alt = '子育て日記 - 話すだけで、記録になる育児日記アプリ'
+export const alt = '子育て日記 - 話すだけの育児記録・育児日記アプリ'
 export const size = {
   width: 1200,
   height: 630,
@@ -84,7 +84,7 @@ export default async function OGImage() {
               letterSpacing: '0.02em',
             }}
           >
-            NEW ・ 話すだけ記録
+            話すだけの育児記録アプリ
           </div>
 
           {/* App icon + title */}
@@ -142,7 +142,7 @@ export default async function OGImage() {
               display: 'flex',
             }}
           >
-            AIが記録を自動で作成。夫婦・家族での共有にも対応。
+            AIが授乳・睡眠の育児記録を自動で作成。夫婦での共有にも対応。
           </div>
 
           {/* Feature chips row - like LP feature cards, text only (no emoji) */}

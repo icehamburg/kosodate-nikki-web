@@ -8,13 +8,19 @@ const notoSansJP = Noto_Sans_JP({
   weight: ["400", "500", "600", "700"],
 });
 
+// 語彙はASO(docs/aso-2026-08.md)と揃える: 「育児記録」「授乳」「話すだけ」「音声」
+const SITE_TITLE = "子育て日記 - 話すだけの育児記録・育児日記アプリ";
+const SITE_DESCRIPTION =
+  "「ミルク140飲んで、さっき寝たよ」と話すだけで、AIが授乳・ミルク・睡眠の育児記録を自動でつくります。夫婦での共有や、Apple Watchだけでの記録にも対応。無料ではじめられます。";
+
 export const metadata: Metadata = {
-  title: "子育て日記 - 話すだけで、記録になる育児日記アプリ",
-  description: "「ミルク140飲んで、さっき寝たよ」と話すだけでAIが記録を作ります。夫婦・家族での共有や、Apple Watchだけでの記録にも対応。",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  keywords: ["育児記録", "育児日記", "授乳記録", "子育て記録", "音声入力", "夫婦 共有", "Apple Watch"],
   metadataBase: new URL("https://kosodate-nikki.jp"),
   openGraph: {
-    title: "子育て日記 - 話すだけで、記録になる育児日記アプリ",
-    description: "「ミルク140飲んで、さっき寝たよ」と話すだけでAIが記録を作ります。夫婦・家族での共有や、Apple Watchだけでの記録にも対応。",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     locale: "ja_JP",
     type: "website",
     url: "https://kosodate-nikki.jp",
@@ -22,8 +28,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "子育て日記 - 話すだけで、記録になる育児日記アプリ",
-    description: "「ミルク140飲んで、さっき寝たよ」と話すだけでAIが記録を作ります。夫婦・家族での共有や、Apple Watchだけでの記録にも対応。",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
   },
 };
 
