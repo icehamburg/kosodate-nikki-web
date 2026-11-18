@@ -2,10 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import AuthRedirect from "./auth-redirect";
 
-// TODO(ASO): App Store Connect でキャンペーンリンクを発行したら差し替える。
-// 形式: https://apps.apple.com/app/apple-store/id6758967429?pt=<プロバイダトークン>&ct=lp&mt=8
-// pt はASC(App Analytics → キャンペーン)でしか発行できない。素のURLだと参照元Webに合算され施策別に見えない。
-const APP_STORE_URL = "https://apps.apple.com/jp/app/%E5%AD%90%E8%82%B2%E3%81%A6%E8%A8%98%E9%8C%B2%E6%97%A5%E8%A8%98/id6758967429";
+// LP→App Storeのリンク。ASCの「キャンペーン」で ct=lp として数える（割り当て表: docs/growth-2026-11.md）。
+// pt（プロバイダトークン）はASC（App Analytics → キャンペーンリンクの作成）でしか発行できない。
+// 入手したら ASC_PROVIDER_TOKEN を埋めるだけで計測が有効になる（空の間は ct だけ付いたURL。リンクとしては普通に開ける）。
+const ASC_PROVIDER_TOKEN = "";
+const APP_STORE_URL = `https://apps.apple.com/jp/app/id6758967429?${ASC_PROVIDER_TOKEN ? `pt=${ASC_PROVIDER_TOKEN}&` : ""}ct=lp&mt=8`;
 
 // 話すだけ記録・家族共有・Watch単体記録に続く「そのほかの機能」。番号は装飾ではなく整理のためのラベル。
 const compactFeatures = [
