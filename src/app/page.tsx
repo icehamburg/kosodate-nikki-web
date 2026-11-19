@@ -476,7 +476,7 @@ export default function HomePage() {
             <li><Link href="/privacy">プライバシーポリシー</Link></li>
           </ul>
           <div className="footer-bottom">
-            <p>© 2025–2026 ICE HAMBURG K.K. All rights reserved.</p>
+            <p>© 2025–2026 icehamburg Inc. All rights reserved.</p>
           </div>
         </div>
       </footer>

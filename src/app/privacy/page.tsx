@@ -93,7 +93,7 @@ export default function PrivacyPage() {
       <footer className="prv-footer">
         <div className="prv-footer-inner">
           <Link href="/">← トップページに戻る</Link>
-          <p>© 2025–2026 ICE HAMBURG K.K. All rights reserved.</p>
+          <p>© 2025–2026 icehamburg Inc. All rights reserved.</p>
         </div>
       </footer>
     </>
