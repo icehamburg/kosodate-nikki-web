@@ -3,6 +3,9 @@ import Link from "next/link";
 import AuthRedirect from "./auth-redirect";
 import Gallery from "./gallery";
 import LpMotion from "./lp-motion";
+import { RecordIcon, RECORD_ACCENT } from "./icons/RecordIcon";
+import { UiIcon } from "./icons/UiIcon";
+import { BookIcon, CalendarIcon, GraphIcon, PrinterIcon } from "./icons/TabIcons";
 
 // LP→App Storeのリンク。ASCの「キャンペーン」で ct=lp として数える（割り当て表: docs/growth-2026-11.md）。
 // pt（プロバイダトークン）はASC（App Analytics → キャンペーンリンクの作成）でしか発行できない。
@@ -12,21 +15,31 @@ const APP_STORE_URL = `https://apps.apple.com/jp/app/id6758967429?${ASC_PROVIDER
 
 // 話すだけ記録・家族共有・Watch単体記録に続く「そのほかの機能」。
 // 最初の6つはそのまま見せ、残りは「ほかの機能を見る」で開く（モバイルでの長さ対策）。
+// icon はアプリでその機能に使っているもの（励ましカードだけは専用が無いので、コラム画面で使っている star）
+const ICON_INK = "#2B2724";
 const compactFeatures = [
-  { title: "音声で日記", desc: "話しかけると、AIがフィラーを取り除いて、やさしい日記に整えます。" },
-  { title: "今日のひとこと", desc: "生後0日から3歳まで、その日の月齢に合わせた観察コメントをお届けします。" },
-  { title: "思い出カード", desc: "1年前・半年前・3ヶ月前の今日の日記が、ホームにそっと現れます。" },
-  { title: "月齢記念カード", desc: "生後◯ヶ月の記念日に、写真と月齢を入れたカードを作って共有できます。" },
-  { title: "励ましカード", desc: "実在の出典つきの60枚。短い言葉に、そっと背中を押してもらえる日があります。" },
-  { title: "コラム", desc: "専門家の出典つき。北欧など海外の子育て観にも触れられます。" },
-  { title: "カレンダー・タイムライン", desc: "記録と日記をまとめて、1日・1週間の流れで振り返れます。" },
-  { title: "まとめグラフ", desc: "授乳の回数や睡眠時間の推移が、ひと目でわかります。" },
-  { title: "PDF書き出し", desc: "記録と日記を、そのまま思い出のアルバムに残せます。" },
-  { title: "夜の日記リマインド", desc: "その日の日記を書いた夜には届かない、控えめなお知らせです。" },
-  { title: "ダークモード", desc: "夜中の授乳でも、画面がまぶしくありません。" },
-  { title: "きょうだい管理", desc: "複数のお子さまの記録も、ひとつのアカウントで見られます。" },
+  { icon: <RecordIcon name="diary" size={24} color={ICON_INK} />, title: "音声で日記", desc: "話しかけると、AIがフィラーを取り除いて、やさしい日記に整えます。" },
+  { icon: <UiIcon name="cloud" size={24} color={ICON_INK} />, title: "今日のひとこと", desc: "生後0日から3歳まで、その日の月齢に合わせた観察コメントをお届けします。" },
+  { icon: <UiIcon name="book" size={24} color={ICON_INK} />, title: "思い出カード", desc: "1年前・半年前・3ヶ月前の今日の日記が、ホームにそっと現れます。" },
+  { icon: <UiIcon name="image" size={24} color={ICON_INK} />, title: "月齢記念カード", desc: "生後◯ヶ月の記念日に、写真と月齢を入れたカードを作って共有できます。" },
+  { icon: <UiIcon name="star" size={24} color={ICON_INK} />, title: "励ましカード", desc: "実在の出典つきの60枚。短い言葉に、そっと背中を押してもらえる日があります。" },
+  { icon: <BookIcon size={24} color={ICON_INK} />, title: "コラム", desc: "専門家の出典つき。北欧など海外の子育て観にも触れられます。" },
+  { icon: <CalendarIcon size={24} color={ICON_INK} />, title: "カレンダー・タイムライン", desc: "記録と日記をまとめて、1日・1週間の流れで振り返れます。" },
+  { icon: <GraphIcon size={24} color={ICON_INK} />, title: "まとめグラフ", desc: "授乳の回数や睡眠時間の推移が、ひと目でわかります。" },
+  { icon: <PrinterIcon size={24} color={ICON_INK} />, title: "PDF書き出し", desc: "記録と日記を、そのまま思い出のアルバムに残せます。" },
+  { icon: <UiIcon name="bell" size={24} color={ICON_INK} />, title: "夜の日記リマインド", desc: "その日の日記を書いた夜には届かない、控えめなお知らせです。" },
+  { icon: <UiIcon name="moon" size={24} color={ICON_INK} />, title: "ダークモード", desc: "夜中の授乳でも、画面がまぶしくありません。" },
+  { icon: <UiIcon name="baby" size={24} color={ICON_INK} />, title: "きょうだい管理", desc: "複数のお子さまの記録も、ひとつのアカウントで見られます。" },
 ];
 const FEATURES_VISIBLE = 6;
+
+// 話すだけ記録の画面（09_voice）に出ている「などの記録に」と同じ4つ
+const voiceExamples = [
+  { name: "milk", label: "ミルク" },
+  { name: "sleep", label: "睡眠" },
+  { name: "poop", label: "うんち" },
+  { name: "temperature", label: "体温" },
+] as const;
 
 // alt はASO語彙(育児記録・授乳)と接続するため、ラベルより説明的に書く
 const galleryShots = [
@@ -129,15 +142,16 @@ export default function HomePage() {
         /* 話す→記録になる、の実演（実際の画面 10_voice_confirm と同じ内容）。文字なのでどの幅でもくっきり */
         .demo { margin: 48px auto 0; max-width: 400px; background: var(--app-bg); border-radius: 28px; padding: 22px 18px 18px; text-align: left; }
         .demo-voice { display: flex; align-items: center; gap: 12px; font-size: 1.0625rem; font-weight: 500; }
-        .rec-dot { position: relative; flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); }
-        .rec-dot::before { content: ''; position: absolute; left: 50%; top: 50%; width: 10px; height: 16px; margin: -10px 0 0 -5px; border-radius: 5px; background: #fff; }
-        .rec-dot::after { content: ''; position: absolute; left: 50%; top: 50%; width: 16px; height: 8px; margin: 1px 0 0 -8px; border: 2px solid #fff; border-top: 0; border-radius: 0 0 9px 9px; }
+        .rec-dot { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); display: inline-flex; align-items: center; justify-content: center; }
         .demo-arrow { color: var(--grey); font-size: .8125rem; margin: 14px 0 10px 52px; }
         .demo-records { list-style: none; display: grid; gap: 8px; }
-        .demo-records li { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 10px; background: #fff; border-radius: 14px; padding: 14px 16px; }
+        .demo-records li { display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 10px; background: #fff; border-radius: 14px; padding: 14px 16px; }
         .rec-name { font-weight: 700; }
         .rec-val { font-weight: 500; }
         .rec-time { color: var(--grey); font-size: .875rem; font-variant-numeric: tabular-nums; }
+        .vex { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin: 20px 0 16px; }
+        .vex li { display: inline-flex; align-items: center; gap: 6px; font-size: .9375rem; font-weight: 500; }
+        .vex .vex-more { color: var(--grey); font-weight: 400; }
         .demo-foot { margin-top: 12px; color: var(--grey); font-size: .8125rem; text-align: center; }
 
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(180,83,47,.35); } 100% { box-shadow: 0 0 0 14px rgba(180,83,47,0); } }
@@ -173,6 +187,11 @@ export default function HomePage() {
         .steps li { display: flex; align-items: center; gap: 14px; font-size: 1rem; font-weight: 500; counter-increment: s; }
         .steps li::before { content: counter(s); flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--ink); font-size: .875rem; font-weight: 700; }
 
+        /* ポイントのイラスト（Codex 作・既存イラストと同じ家族と画風） */
+        .illust { display: block; height: auto; margin: 32px auto 0; }
+        .illust-sq { width: min(280px, 72%); }
+        .illust-wide { width: min(440px, 100%); }
+        .illust + .crop { margin-top: 24px; }
         /* スクショは読める部分だけを大きく切り出す（下は切れてよい） */
         .crop { margin: 36px auto 0; max-width: 380px; border-radius: 24px; overflow: hidden; background: var(--app-bg); }
         .crop img { display: block; width: 100%; height: auto; }
@@ -189,6 +208,8 @@ export default function HomePage() {
 
         /* そのほかの機能: 枠なしの一覧。見出し＋灰の1〜2行 */
         .flist { list-style: none; margin-top: 28px; display: grid; gap: 20px; }
+        .flist li { display: grid; grid-template-columns: 24px 1fr; column-gap: 14px; }
+        .ficon { grid-row: span 2; padding-top: 1px; line-height: 0; }
         .flist h3 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
         .flist p { color: var(--grey); font-size: .9375rem; line-height: 1.75; }
         .more { margin-top: 20px; }
@@ -240,10 +261,7 @@ export default function HomePage() {
         .footer-bottom { padding-top: 20px; border-top: 1px solid rgba(243,238,232,.14); font-size: .8125rem; }
 
         @media (min-width: 720px) {
-          /* PCは「名前｜説明」を1行に（2列カードにすると説明が3行になり、1文字だけの行が出る） */
-          .flist { gap: 14px; }
-          .flist li { display: grid; grid-template-columns: 200px 1fr; gap: 16px; align-items: baseline; }
-          .flist h3 { margin: 0; }
+          /* PCもスマホと同じ「アイコン｜名前の下に説明」。横3列にすると名前と説明が折り返して1文字だけの行が出る */
           .shot { flex-basis: 230px; }
         }
         @media (min-width: 900px) {
@@ -299,11 +317,11 @@ export default function HomePage() {
           </div>
           <div className="wrap">
             <div className="demo" role="img" aria-label="話すだけ記録の例：「ミルク140飲んで、さっき寝たよ」と話すと、ミルク140mlと睡眠ねんね開始の2つの記録ができる">
-              <p className="demo-voice"><span className="rec-dot" aria-hidden="true" /><span className="kw">「ミルク140飲んで、<wbr />さっき寝たよ」</span></p>
+              <p className="demo-voice"><span className="rec-dot" aria-hidden="true"><UiIcon name="mic" size={22} color="#fff" /></span><span className="kw">「ミルク140飲んで、<wbr />さっき寝たよ」</span></p>
               <p className="demo-arrow" aria-hidden="true">↓ AIが記録の形にします</p>
               <ul className="demo-records" aria-hidden="true">
-                <li><span className="rec-name">ミルク</span><span className="rec-val">140ml</span><span className="rec-time">9:56</span></li>
-                <li><span className="rec-name">睡眠</span><span className="rec-val">ねんね開始</span><span className="rec-time">9:41</span></li>
+                <li><RecordIcon name="milk" size={24} color={RECORD_ACCENT.milk} /><span className="rec-name">ミルク</span><span className="rec-val">140ml</span><span className="rec-time">9:56</span></li>
+                <li><RecordIcon name="sleep" size={24} color={RECORD_ACCENT.sleep} /><span className="rec-name">睡眠</span><span className="rec-val">ねんね開始</span><span className="rec-time">9:41</span></li>
               </ul>
               <p className="demo-foot" aria-hidden="true">確かめてから「この内容で記録する」</p>
             </div>
@@ -316,6 +334,13 @@ export default function HomePage() {
             <p className="label">話すだけ記録</p>
             <h2 className="kw">話しかけるだけで、<wbr />育児記録が<wbr />できあがります</h2>
             <p>ミルクの量や眠った時間を、いちいち画面をタップして選ばなくても大丈夫です。話した内容からAIが授乳・ミルク・睡眠などの記録項目を読み取り、記録の形にしてくれます。</p>
+            <Image src="/illustrations/voice-handsfree.png" alt="ソファで赤ちゃんにミルクをあげながら、そばのスマホに話しかけて育児記録をつける親のイラスト" width={1254} height={1254} sizes="(max-width: 600px) 72vw, 280px" className="illust illust-sq" />
+            <ul className="vex" aria-label="話して記録できる項目の例">
+              {voiceExamples.map((v) => (
+                <li key={v.name}><RecordIcon name={v.name} size={28} color={RECORD_ACCENT[v.name]} />{v.label}</li>
+              ))}
+              <li className="vex-more">などの記録に</li>
+            </ul>
             <p className="meta kw">月20回まで無料で使えます。<wbr />内容は保存前に確認できます。</p>
           </div>
         </section>
@@ -334,6 +359,7 @@ export default function HomePage() {
             <p className="meta kw" style={{ marginTop: 16 }}>パートナー側の準備は、<wbr />この3ステップだけです。</p>
           </div>
           <div className="wrap" data-reveal>
+            <Image src="/illustrations/family-share.png" alt="離れた場所にいる夫婦のスマホが、ひとつの育児記録につながっているイラスト" width={1448} height={1086} sizes="(max-width: 600px) 92vw, 440px" className="illust illust-wide" />
             <div className="crop crop-family">
               <Image src="/screenshots/11_family.png" alt="夫婦・家族共有 — 6桁の招待コードでパートナーと育児記録を共有する画面" width={860} height={1868} sizes="(max-width: 600px) 92vw, 400px" />
             </div>
@@ -348,6 +374,7 @@ export default function HomePage() {
             <p>Apple Watchだけで記録が完結します。電波が届かない場所でも記録は端末にそっと残り、つながったときに自動で送信されます。</p>
           </div>
           <div className="wrap" data-reveal>
+            <Image src="/illustrations/watch-wrist.png" alt="赤ちゃんを抱いたまま、手首のApple Watchをタップして育児記録をつける親のイラスト" width={1254} height={1254} sizes="(max-width: 600px) 72vw, 280px" className="illust illust-sq" />
             <div className="crop crop-watch">
               <Image src="/screenshots/12_watch.png" alt="Apple Watch単体記録 — Watchだけで育児記録を入力している画面" width={520} height={482} sizes="300px" />
             </div>
@@ -396,14 +423,14 @@ export default function HomePage() {
             <p className="meta kw">話すだけ記録や夫婦での共有のほかにも、<wbr />こんな機能があります。</p>
             <ul className="flist">
               {compactFeatures.slice(0, FEATURES_VISIBLE).map((f) => (
-                <li key={f.title}><h3>{f.title}</h3><p>{f.desc}</p></li>
+                <li key={f.title}><span className="ficon">{f.icon}</span><h3>{f.title}</h3><p>{f.desc}</p></li>
               ))}
             </ul>
             <details className="more">
               <summary className="btn btn-sub">ほかの{compactFeatures.length - FEATURES_VISIBLE}つの機能を見る</summary>
               <ul className="flist">
                 {compactFeatures.slice(FEATURES_VISIBLE).map((f) => (
-                  <li key={f.title}><h3>{f.title}</h3><p>{f.desc}</p></li>
+                  <li key={f.title}><span className="ficon">{f.icon}</span><h3>{f.title}</h3><p>{f.desc}</p></li>
                 ))}
               </ul>
             </details>
